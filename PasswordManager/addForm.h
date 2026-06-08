@@ -23,6 +23,18 @@ namespace PasswordManager {
 			//
 		}
 
+		property String^ addTitle {
+			String^ get() { return titleTextBox->Text; }
+		}
+
+		property String^ addLogin {
+			String^ get() { return loginTextBox->Text; }
+		}
+
+		property String^ addPassword {
+			String^ get() { return passwordTextBox->Text; }
+		}
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -131,6 +143,7 @@ namespace PasswordManager {
 			this->saveButton->TabIndex = 2;
 			this->saveButton->Text = L"Save";
 			this->saveButton->UseVisualStyleBackColor = true;
+			this->saveButton->Click += gcnew System::EventHandler(this, &addForm::saveButton_Click);
 			// 
 			// addForm
 			// 
@@ -153,5 +166,16 @@ namespace PasswordManager {
 
 		}
 #pragma endregion
-	};
+	private: System::Void saveButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (String::IsNullOrWhiteSpace(titleTextBox->Text) ||
+			String::IsNullOrWhiteSpace(loginTextBox->Text) ||
+			String::IsNullOrWhiteSpace(passwordTextBox->Text)) {
+			MessageBox::Show(this, "Text boxes must contain something", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		this->DialogResult = System::Windows::Forms::DialogResult::OK;
+		this->Close();
+	}
+};
 }
