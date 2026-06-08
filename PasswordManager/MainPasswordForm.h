@@ -81,11 +81,15 @@ namespace PasswordManager {
 			// 
 			// servicesListBox
 			// 
+			this->servicesListBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+																	   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->servicesListBox->FormattingEnabled = true;
+			this->servicesListBox->ItemHeight = 24;
 			this->servicesListBox->Location = System::Drawing::Point(24, 24);
 			this->servicesListBox->Name = L"servicesListBox";
-			this->servicesListBox->Size = System::Drawing::Size(288, 498);
+			this->servicesListBox->Size = System::Drawing::Size(288, 484);
 			this->servicesListBox->TabIndex = 1;
+			this->servicesListBox->SelectedIndexChanged += gcnew System::EventHandler(this, &MainPasswordForm::servicesListBox_SelectedIndexChanged);
 			// 
 			// loginLabel
 			// 
@@ -191,6 +195,11 @@ namespace PasswordManager {
 		myAccounts->Add(gcnew Account("Spotify", "GiggleBus", "1234qwe"));
 		this->servicesListBox->Items->Add(myAccounts[0]->getTitle());
 		this->servicesListBox->Items->Add(myAccounts[1]->getTitle());
+	}
+	private: System::Void servicesListBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		int index = servicesListBox->SelectedIndex;
+		this->loginTextBox->Text = myAccounts[index]->getLogin();
+		this->passwordTextBox->Text = myAccounts[index]->getPassword();
 	}
 };
 }
