@@ -34,7 +34,16 @@ namespace PasswordManager {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ loginLabel;
+	private: System::Windows::Forms::Label^ passwordLabel;
+	private: System::Windows::Forms::TextBox^ passwordTextBox;
+	private: System::Windows::Forms::TextBox^ loginTextBox;
+	private: System::Windows::Forms::Button^ loginButton;
+
+	protected:
+
+	protected:
+
 	protected:
 
 	private:
@@ -51,26 +60,73 @@ namespace PasswordManager {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->loginLabel = (gcnew System::Windows::Forms::Label());
+			this->passwordLabel = (gcnew System::Windows::Forms::Label());
+			this->passwordTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->loginTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->loginButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// label1
+			// loginLabel
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-															  static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(139, 141);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(106, 37);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"label1";
+			this->loginLabel->AutoSize = true;
+			this->loginLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+																  static_cast<System::Byte>(204)));
+			this->loginLabel->Location = System::Drawing::Point(72, 144);
+			this->loginLabel->Name = L"loginLabel";
+			this->loginLabel->Size = System::Drawing::Size(111, 37);
+			this->loginLabel->TabIndex = 0;
+			this->loginLabel->Text = L"Login:";
+			// 
+			// passwordLabel
+			// 
+			this->passwordLabel->AutoSize = true;
+			this->passwordLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+																	 static_cast<System::Byte>(204)));
+			this->passwordLabel->Location = System::Drawing::Point(72, 240);
+			this->passwordLabel->Name = L"passwordLabel";
+			this->passwordLabel->Size = System::Drawing::Size(176, 37);
+			this->passwordLabel->TabIndex = 0;
+			this->passwordLabel->Text = L"Password:";
+			// 
+			// passwordTextBox
+			// 
+			this->passwordTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
+																	   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->passwordTextBox->Location = System::Drawing::Point(264, 240);
+			this->passwordTextBox->Name = L"passwordTextBox";
+			this->passwordTextBox->PasswordChar = '*';
+			this->passwordTextBox->Size = System::Drawing::Size(216, 31);
+			this->passwordTextBox->TabIndex = 1;
+			// 
+			// loginTextBox
+			// 
+			this->loginTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																	static_cast<System::Byte>(204)));
+			this->loginTextBox->Location = System::Drawing::Point(264, 144);
+			this->loginTextBox->Name = L"loginTextBox";
+			this->loginTextBox->Size = System::Drawing::Size(216, 31);
+			this->loginTextBox->TabIndex = 1;
+			// 
+			// loginButton
+			// 
+			this->loginButton->Location = System::Drawing::Point(216, 384);
+			this->loginButton->Name = L"loginButton";
+			this->loginButton->Size = System::Drawing::Size(168, 48);
+			this->loginButton->TabIndex = 2;
+			this->loginButton->Text = L"Login";
+			this->loginButton->UseVisualStyleBackColor = true;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 561);
-			this->Controls->Add(this->label1);
+			this->Controls->Add(this->loginButton);
+			this->Controls->Add(this->loginTextBox);
+			this->Controls->Add(this->passwordTextBox);
+			this->Controls->Add(this->passwordLabel);
+			this->Controls->Add(this->loginLabel);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
