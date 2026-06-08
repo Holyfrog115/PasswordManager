@@ -6,7 +6,8 @@ private:
 	System::String^ login;
 	System::String^ password;
 public:
-	Account(System::String^ login, System::String^ password) {
+	Account(System::String^ title, System::String^ login, System::String^ password) {
+		this->title = title;
 		this->login = login;
 		this->password = password;
 	}
@@ -23,7 +24,7 @@ public:
 		return this->password;
 	}
 
-	void setLogin(System::String^ title) {
+	void setTitle(System::String^ title) {
 		this->title = title;
 	}
 

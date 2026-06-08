@@ -43,6 +43,7 @@ namespace PasswordManager {
 	private: System::Windows::Forms::Button^ addButton;
 	private: System::Windows::Forms::Button^ deleteButton;
 	private: System::Windows::Forms::Button^ saveButton;
+	private: Account^ acc = gcnew Account("Google", "Disterio", "qwerty");
 
 
 
@@ -81,7 +82,6 @@ namespace PasswordManager {
 			// servicesListBox
 			// 
 			this->servicesListBox->FormattingEnabled = true;
-			this->servicesListBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Example1", L"Example2", L"Example3" });
 			this->servicesListBox->Location = System::Drawing::Point(24, 24);
 			this->servicesListBox->Name = L"servicesListBox";
 			this->servicesListBox->Size = System::Drawing::Size(288, 498);
@@ -169,11 +169,13 @@ namespace PasswordManager {
 			this->Controls->Add(this->passwordLabel);
 			this->Controls->Add(this->loginLabel);
 			this->Controls->Add(this->servicesListBox);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MainPasswordForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Password Manager";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &MainPasswordForm::MainPasswordForm_FormClosed);
+			this->Load += gcnew System::EventHandler(this, &MainPasswordForm::MainPasswordForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -182,5 +184,10 @@ namespace PasswordManager {
 	private: System::Void MainPasswordForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
 		Application::Exit();
 	}
-	};
+
+	
+	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->servicesListBox->Items->Add(acc->getTitle());
+	}
+};
 }

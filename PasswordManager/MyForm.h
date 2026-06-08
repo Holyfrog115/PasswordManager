@@ -129,6 +129,7 @@ namespace PasswordManager {
 			this->Controls->Add(this->passwordTextBox);
 			this->Controls->Add(this->passwordLabel);
 			this->Controls->Add(this->loginLabel);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
