@@ -1,4 +1,5 @@
 #pragma once
+#include "Account.h"
 
 namespace PasswordManager {
 

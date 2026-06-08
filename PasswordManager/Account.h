@@ -2,13 +2,17 @@
 ref class Account
 {
 private:
+	System::String^ title;
 	System::String^ login;
 	System::String^ password;
-
 public:
 	Account(System::String^ login, System::String^ password) {
 		this->login = login;
 		this->password = password;
+	}
+
+	System::String^ getTitle() {
+		return this->title;
 	}
 
 	System::String^ getLogin() {
@@ -17,6 +21,10 @@ public:
 
 	System::String^ getPassword() {
 		return this->password;
+	}
+
+	void setLogin(System::String^ title) {
+		this->title = title;
 	}
 
 	void setLogin(System::String^ login) {
