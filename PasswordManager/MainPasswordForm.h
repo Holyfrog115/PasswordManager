@@ -34,7 +34,23 @@ namespace PasswordManager {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::ListBox^ servicesListBox;
+	private: System::Windows::Forms::Label^ loginLabel;
+	private: System::Windows::Forms::MaskedTextBox^ loginTextBox;
+	private: System::Windows::Forms::Label^ passwordLabel;
+	private: System::Windows::Forms::MaskedTextBox^ passwordTextBox;
+	private: System::Windows::Forms::Button^ addButton;
+	private: System::Windows::Forms::Button^ deleteButton;
+	private: System::Windows::Forms::Button^ saveButton;
+
+
+
+	protected:
+
+	protected:
+
+	protected:
+
 	protected:
 
 	private:
@@ -51,24 +67,107 @@ namespace PasswordManager {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainPasswordForm::typeid));
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->servicesListBox = (gcnew System::Windows::Forms::ListBox());
+			this->loginLabel = (gcnew System::Windows::Forms::Label());
+			this->loginTextBox = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->passwordLabel = (gcnew System::Windows::Forms::Label());
+			this->passwordTextBox = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->addButton = (gcnew System::Windows::Forms::Button());
+			this->deleteButton = (gcnew System::Windows::Forms::Button());
+			this->saveButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// label1
+			// servicesListBox
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(240, 168);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(35, 13);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"label1";
+			this->servicesListBox->FormattingEnabled = true;
+			this->servicesListBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Example1", L"Example2", L"Example3" });
+			this->servicesListBox->Location = System::Drawing::Point(24, 24);
+			this->servicesListBox->Name = L"servicesListBox";
+			this->servicesListBox->Size = System::Drawing::Size(288, 498);
+			this->servicesListBox->TabIndex = 1;
+			// 
+			// loginLabel
+			// 
+			this->loginLabel->AutoSize = true;
+			this->loginLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+																  static_cast<System::Byte>(204)));
+			this->loginLabel->Location = System::Drawing::Point(360, 24);
+			this->loginLabel->Name = L"loginLabel";
+			this->loginLabel->Size = System::Drawing::Size(111, 37);
+			this->loginLabel->TabIndex = 2;
+			this->loginLabel->Text = L"Login:";
+			// 
+			// loginTextBox
+			// 
+			this->loginTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+																	static_cast<System::Byte>(204)));
+			this->loginTextBox->Location = System::Drawing::Point(360, 72);
+			this->loginTextBox->Name = L"loginTextBox";
+			this->loginTextBox->ReadOnly = true;
+			this->loginTextBox->Size = System::Drawing::Size(192, 31);
+			this->loginTextBox->TabIndex = 3;
+			// 
+			// passwordLabel
+			// 
+			this->passwordLabel->AutoSize = true;
+			this->passwordLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+																	 static_cast<System::Byte>(204)));
+			this->passwordLabel->Location = System::Drawing::Point(360, 144);
+			this->passwordLabel->Name = L"passwordLabel";
+			this->passwordLabel->Size = System::Drawing::Size(176, 37);
+			this->passwordLabel->TabIndex = 2;
+			this->passwordLabel->Text = L"Password:";
+			// 
+			// passwordTextBox
+			// 
+			this->passwordTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
+																	   System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->passwordTextBox->Location = System::Drawing::Point(360, 192);
+			this->passwordTextBox->Name = L"passwordTextBox";
+			this->passwordTextBox->ReadOnly = true;
+			this->passwordTextBox->Size = System::Drawing::Size(192, 31);
+			this->passwordTextBox->TabIndex = 3;
+			// 
+			// addButton
+			// 
+			this->addButton->Location = System::Drawing::Point(360, 312);
+			this->addButton->Name = L"addButton";
+			this->addButton->Size = System::Drawing::Size(192, 48);
+			this->addButton->TabIndex = 4;
+			this->addButton->Text = L"Add";
+			this->addButton->UseVisualStyleBackColor = true;
+			// 
+			// deleteButton
+			// 
+			this->deleteButton->Location = System::Drawing::Point(360, 384);
+			this->deleteButton->Name = L"deleteButton";
+			this->deleteButton->Size = System::Drawing::Size(192, 48);
+			this->deleteButton->TabIndex = 4;
+			this->deleteButton->Text = L"Delete";
+			this->deleteButton->UseVisualStyleBackColor = true;
+			// 
+			// saveButton
+			// 
+			this->saveButton->Location = System::Drawing::Point(360, 456);
+			this->saveButton->Name = L"saveButton";
+			this->saveButton->Size = System::Drawing::Size(192, 48);
+			this->saveButton->TabIndex = 4;
+			this->saveButton->Text = L"Save";
+			this->saveButton->UseVisualStyleBackColor = true;
 			// 
 			// MainPasswordForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 561);
-			this->Controls->Add(this->label1);
+			this->Controls->Add(this->saveButton);
+			this->Controls->Add(this->deleteButton);
+			this->Controls->Add(this->addButton);
+			this->Controls->Add(this->passwordTextBox);
+			this->Controls->Add(this->loginTextBox);
+			this->Controls->Add(this->passwordLabel);
+			this->Controls->Add(this->loginLabel);
+			this->Controls->Add(this->servicesListBox);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MainPasswordForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
