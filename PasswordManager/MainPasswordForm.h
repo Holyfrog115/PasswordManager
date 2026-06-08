@@ -43,7 +43,7 @@ namespace PasswordManager {
 	private: System::Windows::Forms::Button^ addButton;
 	private: System::Windows::Forms::Button^ deleteButton;
 	private: System::Windows::Forms::Button^ saveButton;
-	private: Account^ acc = gcnew Account("Google", "Disterio", "qwerty");
+	private: System::Collections::Generic::List<Account^>^ myAccounts = gcnew System::Collections::Generic::List<Account^>();
 
 
 
@@ -187,7 +187,10 @@ namespace PasswordManager {
 
 	
 	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		this->servicesListBox->Items->Add(acc->getTitle());
+		myAccounts->Add(gcnew Account("Google", "Disterio", "qwerty"));
+		myAccounts->Add(gcnew Account("Spotify", "GiggleBus", "1234qwe"));
+		this->servicesListBox->Items->Add(myAccounts[0]->getTitle());
+		this->servicesListBox->Items->Add(myAccounts[1]->getTitle());
 	}
 };
 }
