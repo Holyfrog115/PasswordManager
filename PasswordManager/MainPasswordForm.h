@@ -1,5 +1,6 @@
 #pragma once
 #include "Account.h"
+#include "addForm.h"
 
 namespace PasswordManager {
 
@@ -141,6 +142,7 @@ namespace PasswordManager {
 			this->addButton->TabIndex = 4;
 			this->addButton->Text = L"Add";
 			this->addButton->UseVisualStyleBackColor = true;
+			this->addButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::addButton_Click);
 			// 
 			// deleteButton
 			// 
@@ -196,10 +198,15 @@ namespace PasswordManager {
 		this->servicesListBox->Items->Add(myAccounts[0]->getTitle());
 		this->servicesListBox->Items->Add(myAccounts[1]->getTitle());
 	}
+
 	private: System::Void servicesListBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		int index = servicesListBox->SelectedIndex;
 		this->loginTextBox->Text = myAccounts[index]->getLogin();
 		this->passwordTextBox->Text = myAccounts[index]->getPassword();
+	}
+
+	private: System::Void addButton_Click(System::Object^ sender, System::EventArgs^ e) {
+
 	}
 };
 }
