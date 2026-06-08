@@ -206,7 +206,16 @@ namespace PasswordManager {
 	}
 
 	private: System::Void addButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		addForm^ add = gcnew addForm();
 
+		if (add->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			Account^ acc = add->NewAccount;
+			myAccounts->Add(acc);
+			servicesListBox->Items->Add(acc->getTitle());
+		}
+		else {
+			MessageBox::Show(this, "Input Error", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
 };
 }

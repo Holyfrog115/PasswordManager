@@ -1,4 +1,5 @@
 #pragma once
+#include "Account.h"
 
 namespace PasswordManager {
 
@@ -23,16 +24,10 @@ namespace PasswordManager {
 			//
 		}
 
-		property String^ addTitle {
-			String^ get() { return titleTextBox->Text; }
-		}
-
-		property String^ addLogin {
-			String^ get() { return loginTextBox->Text; }
-		}
-
-		property String^ addPassword {
-			String^ get() { return passwordTextBox->Text; }
+		property Account^ NewAccount {
+			Account^ get() {
+				return gcnew Account(titleTextBox->Text, loginTextBox->Text, passwordTextBox->Text);
+			}
 		}
 
 	protected:
@@ -160,7 +155,9 @@ namespace PasswordManager {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"addForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Add Section";
+			this->Activated += gcnew System::EventHandler(this, &addForm::addForm_Activated);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -176,6 +173,10 @@ namespace PasswordManager {
 
 		this->DialogResult = System::Windows::Forms::DialogResult::OK;
 		this->Close();
+	}
+
+	private: System::Void addForm_Activated(System::Object^ sender, System::EventArgs^ e) {
+		titleTextBox->Focus();
 	}
 };
 }
