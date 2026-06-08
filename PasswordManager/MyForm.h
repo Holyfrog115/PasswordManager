@@ -1,4 +1,5 @@
 #pragma once
+#include "MainPasswordForm.h"
 
 namespace PasswordManager {
 
@@ -116,6 +117,7 @@ namespace PasswordManager {
 			this->loginButton->TabIndex = 2;
 			this->loginButton->Text = L"Login";
 			this->loginButton->UseVisualStyleBackColor = true;
+			this->loginButton->Click += gcnew System::EventHandler(this, &MyForm::loginButton_Click);
 			// 
 			// MyForm
 			// 
@@ -136,5 +138,17 @@ namespace PasswordManager {
 
 		}
 #pragma endregion
-	};
+	private: System::Void loginButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (this->loginTextBox->Text == "admin" && this->passwordTextBox->Text == "1234") {
+			MainPasswordForm^ mainForm = gcnew MainPasswordForm();
+
+			mainForm->Show();
+
+			this->Hide();
+		}
+		else {
+			MessageBox::Show(this, "Wrong login or password.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
+	}
+};
 }
