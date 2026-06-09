@@ -175,7 +175,7 @@ namespace PasswordManager {
 					String^ login = parts[1];
 					String^ password = parts[2];
 					Account^ acc = gcnew Account(title, login, password);
-					acc->XorCipher();
+					acc->DecryptXorCipher();
 
 					if (this->loginTextBox->Text == acc->getLogin() && this->passwordTextBox->Text == acc->getPassword()) {
 						flag = true;

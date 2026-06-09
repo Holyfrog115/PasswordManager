@@ -36,13 +36,26 @@ public:
 		this->password = password;
 	}
 
-	void XorCipher() {
-		System::Text::StringBuilder^ result = gcnew System::Text::StringBuilder();
+	void EncryptXorCipher() {
+		System::String^ hexResult = "";
 
 		for (int i = 0; i < this->password->Length; i++) {
 			wchar_t encryptedChar = this->password[i] ^ this->login[0];
 
-			result->Append(encryptedChar);
+			hexResult += ((int)encryptedChar).ToString("X2");
+		}
+
+		setPassword(hexResult);
+	}
+
+	void DecryptXorCipher() {
+		System::Text::StringBuilder^ result = gcnew System::Text::StringBuilder();
+		for (int i = 0; i < this->getPassword()->Length; i += 2) {
+			System::String^ hexChar = this->getPassword()->Substring(i, 2);
+			int charCode = System::Convert::ToInt32(hexChar, 16);
+
+			wchar_t originalChar = (wchar_t)charCode ^ this->getLogin()[0];
+			result->Append(originalChar);
 		}
 
 		setPassword(result->ToString());

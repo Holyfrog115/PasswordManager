@@ -216,7 +216,7 @@ namespace PasswordManager {
 					String^ password = parts[2];
 
 					Account^ acc = gcnew Account(title, login, password);
-					acc->XorCipher();
+					acc->DecryptXorCipher();
 
 					myAccounts->Add(acc);
 					servicesListBox->Items->Add(acc->getTitle());
@@ -265,7 +265,7 @@ namespace PasswordManager {
 		StreamWriter^ writer = gcnew StreamWriter(filepath, false, System::Text::Encoding::UTF8);
 
 		for each (Account ^ acc in myAccounts) {
-			acc->XorCipher();
+			acc->EncryptXorCipher();
 			writer->WriteLine(acc->getTitle() + "|" + acc->getLogin() + "|" + acc->getPassword());
 		}
 

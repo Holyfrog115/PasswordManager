@@ -153,7 +153,7 @@ namespace PasswordManager {
 		String^ filepath = "passwords/masterAccounts.txt";
 
 		Account^ acc = gcnew Account("-", login, password);
-		acc->XorCipher();
+		acc->EncryptXorCipher();
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, true, System::Text::Encoding::UTF8);
 
