@@ -152,6 +152,7 @@ namespace PasswordManager {
 			this->deleteButton->TabIndex = 4;
 			this->deleteButton->Text = L"Delete";
 			this->deleteButton->UseVisualStyleBackColor = true;
+			this->deleteButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::deleteButton_Click);
 			// 
 			// saveButton
 			// 
@@ -201,8 +202,15 @@ namespace PasswordManager {
 
 	private: System::Void servicesListBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		int index = servicesListBox->SelectedIndex;
-		this->loginTextBox->Text = myAccounts[index]->getLogin();
-		this->passwordTextBox->Text = myAccounts[index]->getPassword();
+
+		if (index == -1) {
+			this->loginTextBox->Text = "";
+			this->passwordTextBox->Text = "";
+		}
+		else {
+			this->loginTextBox->Text = myAccounts[index]->getLogin();
+			this->passwordTextBox->Text = myAccounts[index]->getPassword();
+		}
 	}
 
 	private: System::Void addButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -216,6 +224,12 @@ namespace PasswordManager {
 		else {
 			MessageBox::Show(this, "Input Error", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+	}
+
+	private: System::Void deleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		int index = servicesListBox->SelectedIndex;
+		myAccounts->RemoveAt(index);
+		servicesListBox->Items->RemoveAt(index);
 	}
 };
 }
