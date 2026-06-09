@@ -163,6 +163,7 @@ namespace PasswordManager {
 			this->saveButton->TabIndex = 4;
 			this->saveButton->Text = L"Save";
 			this->saveButton->UseVisualStyleBackColor = true;
+			this->saveButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::saveButton_Click);
 			// 
 			// MainPasswordForm
 			// 
@@ -265,6 +266,11 @@ namespace PasswordManager {
 		}
 
 		writer->Close();
+	}
+
+	private: System::Void saveButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		saveToFile();
+		MessageBox::Show(this, "Data was saved succesfully", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 };
 }

@@ -40,6 +40,8 @@ namespace PasswordManager {
 	private: System::Windows::Forms::TextBox^ passwordTextBox;
 	private: System::Windows::Forms::TextBox^ loginTextBox;
 	private: System::Windows::Forms::Button^ loginButton;
+	private: System::Windows::Forms::Button^ registrationButton;
+
 
 	protected:
 
@@ -66,6 +68,7 @@ namespace PasswordManager {
 			this->passwordTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->loginTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->loginButton = (gcnew System::Windows::Forms::Button());
+			this->registrationButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// loginLabel
@@ -119,11 +122,21 @@ namespace PasswordManager {
 			this->loginButton->UseVisualStyleBackColor = true;
 			this->loginButton->Click += gcnew System::EventHandler(this, &MyForm::loginButton_Click);
 			// 
+			// registrationButton
+			// 
+			this->registrationButton->Location = System::Drawing::Point(216, 456);
+			this->registrationButton->Name = L"registrationButton";
+			this->registrationButton->Size = System::Drawing::Size(168, 48);
+			this->registrationButton->TabIndex = 3;
+			this->registrationButton->Text = L"Registration";
+			this->registrationButton->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 561);
+			this->Controls->Add(this->registrationButton);
 			this->Controls->Add(this->loginButton);
 			this->Controls->Add(this->loginTextBox);
 			this->Controls->Add(this->passwordTextBox);
