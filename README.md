@@ -1,6 +1,9 @@
 # PasswordManager
 
-Password manager is a C++/CLI, winForm practice project. Program opens with login menu, where user can register or login into master account.
+This password manager built as a practice project to explore C++/CLI and Windows Forms development. 
+
+## Interface
+Program opens with login menu, where user can register or login into master account.
 
 <img width="450" alt="image" src="https://github.com/user-attachments/assets/fcab1946-465b-474d-8b17-ba0aeb44afda" />
 
@@ -16,4 +19,5 @@ After login menu there is a main password manager interface, where user can choo
 
 Password manager interface
 
+## Encryption
 Passwords are being encrypted with XOR method and encrypted data is stored as HEX strings.
