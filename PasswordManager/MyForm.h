@@ -1,5 +1,6 @@
 #pragma once
 #include "MainPasswordForm.h"
+#include "registrationForm1.h"
 
 namespace PasswordManager {
 

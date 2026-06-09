@@ -8,6 +8,7 @@ namespace PasswordManager {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for registrationForm
@@ -133,6 +134,24 @@ namespace PasswordManager {
 		}
 #pragma endregion
 	private: System::Void registrationBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ login = this->loginTextBox->Text;
+		String^ password = this->passwordTextBox->Text;
+		if (login->IsNullOrWhiteSpace || password->IsNullOrWhiteSpace) {
+			MessageBox::Show(this, "Login and Password can't be empty", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+		else {
+			saveToFile(login, password);
+		}
+	}
+
+	private: System::Void saveToFile(String^ login, String^ password) {
+		String^ filepath = "masterAccounts.txt";
+
+		StreamWriter^ writer = gcnew StreamWriter(filepath, true, System::Text::Encoding::UTF8);
+
+		writer->WriteLine(login + "|" + password);
+
+		writer->Close();
 	}
 };
 }
