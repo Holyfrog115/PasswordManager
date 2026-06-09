@@ -10,6 +10,7 @@ namespace PasswordManager {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for MainPasswordForm
@@ -189,15 +190,37 @@ namespace PasswordManager {
 		}
 #pragma endregion
 	private: System::Void MainPasswordForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
+		saveToFile();
 		Application::Exit();
 	}
 
 	
 	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		myAccounts->Add(gcnew Account("Google", "Disterio", "qwerty"));
-		myAccounts->Add(gcnew Account("Spotify", "GiggleBus", "1234qwe"));
-		this->servicesListBox->Items->Add(myAccounts[0]->getTitle());
-		this->servicesListBox->Items->Add(myAccounts[1]->getTitle());
+		String^ filepath = "passwords.txt";
+
+		if (File::Exists(filepath)) {
+			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
+			String^ line;
+
+			while ((line = reader->ReadLine()) != nullptr) {
+				if (String::IsNullOrWhiteSpace(line)) continue;
+
+				cli::array<String^>^ parts = line->Split('|');
+
+				if (parts->Length == 3) {
+					String^ title = parts[0];
+					String^ login = parts[1];
+					String^ password = parts[2];
+
+					Account^ acc = gcnew Account(title, login, password);
+
+					myAccounts->Add(acc);
+					servicesListBox->Items->Add(acc->getTitle());
+				}
+			}
+
+			reader->Close();
+		}
 	}
 
 	private: System::Void servicesListBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -230,6 +253,18 @@ namespace PasswordManager {
 		int index = servicesListBox->SelectedIndex;
 		myAccounts->RemoveAt(index);
 		servicesListBox->Items->RemoveAt(index);
+	}
+
+	private: System::Void saveToFile() {
+		String^ filepath = "passwords.txt";
+
+		StreamWriter^ writer = gcnew StreamWriter(filepath, false, System::Text::Encoding::UTF8);
+
+		for each (Account ^ acc in myAccounts) {
+			writer->WriteLine(acc->getTitle() + "|" + acc->getLogin() + "|" + acc->getPassword());
+		}
+
+		writer->Close();
 	}
 };
 }
