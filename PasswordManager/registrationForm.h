@@ -139,6 +139,9 @@ namespace PasswordManager {
 		if (String::IsNullOrWhiteSpace(login) || String::IsNullOrWhiteSpace(password)) {
 			MessageBox::Show(this, "Login and Password can't be empty", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+		else if (containsLogin(login)) {
+			MessageBox::Show(this, "This login is taken.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 		else {
 			saveToFile(login, password);
 			this->Close();
@@ -153,6 +156,34 @@ namespace PasswordManager {
 		writer->WriteLine(login + "|" + password);
 
 		writer->Close();
+	}
+
+	private: bool containsLogin(String^ login) {
+		String^ filepath = "masterAccounts.txt";
+
+		if (File::Exists(filepath)) {
+			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
+			String^ line;
+
+			while ((line = reader->ReadLine()) != nullptr) {
+				if (String::IsNullOrWhiteSpace(line)) continue;
+
+				cli::array<String^>^ parts = line->Split('|');
+
+				if (parts->Length == 2) {
+					String^ currentLogin = parts[0];
+
+					if (currentLogin == login) {
+						reader->Close();
+						return true;
+					}
+				}
+			}
+
+			reader->Close();
+		}
+
+		return false;
 	}
 };
 }

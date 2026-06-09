@@ -43,6 +43,7 @@ namespace PasswordManager {
 	private: System::Windows::Forms::TextBox^ loginTextBox;
 	private: System::Windows::Forms::Button^ loginButton;
 	private: System::Windows::Forms::Button^ registrationButton;
+	private: String^ currentLogin;
 
 
 	protected:
@@ -174,7 +175,8 @@ namespace PasswordManager {
 
 					if (this->loginTextBox->Text == login && this->passwordTextBox->Text == password) {
 						flag = true;
-						MainPasswordForm^ mainForm = gcnew MainPasswordForm();
+						this->currentLogin = login;
+						MainPasswordForm^ mainForm = gcnew MainPasswordForm(currentLogin);
 
 						mainForm->Show();
 

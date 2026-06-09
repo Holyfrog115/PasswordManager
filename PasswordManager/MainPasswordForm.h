@@ -18,12 +18,13 @@ namespace PasswordManager {
 	public ref class MainPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		MainPasswordForm(void)
+		MainPasswordForm(String^ currentLogin)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+			this->currentLogin = currentLogin;
 		}
 
 	protected:
@@ -46,6 +47,7 @@ namespace PasswordManager {
 	private: System::Windows::Forms::Button^ deleteButton;
 	private: System::Windows::Forms::Button^ saveButton;
 	private: System::Collections::Generic::List<Account^>^ myAccounts = gcnew System::Collections::Generic::List<Account^>();
+	private: String^ currentLogin;
 
 
 
@@ -197,7 +199,7 @@ namespace PasswordManager {
 
 	
 	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		String^ filepath = "passwords.txt";
+		String^ filepath = currentLogin + ".txt";
 
 		if (File::Exists(filepath)) {
 			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
@@ -257,7 +259,7 @@ namespace PasswordManager {
 	}
 
 	private: System::Void saveToFile() {
-		String^ filepath = "passwords.txt";
+		String^ filepath = currentLogin + ".txt";
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, false, System::Text::Encoding::UTF8);
 
