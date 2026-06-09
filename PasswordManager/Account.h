@@ -35,5 +35,17 @@ public:
 	void setPassword(System::String^ password) {
 		this->password = password;
 	}
+
+	void XorCipher() {
+		System::Text::StringBuilder^ result = gcnew System::Text::StringBuilder();
+
+		for (int i = 0; i < this->password->Length; i++) {
+			wchar_t encryptedChar = this->password[i] ^ this->login[0];
+
+			result->Append(encryptedChar);
+		}
+
+		setPassword(result->ToString());
+	}
 };
 

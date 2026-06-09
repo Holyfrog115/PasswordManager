@@ -199,7 +199,7 @@ namespace PasswordManager {
 
 	
 	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		String^ filepath = currentLogin + ".txt";
+		String^ filepath = "/passwords" + currentLogin + ".txt";
 
 		if (File::Exists(filepath)) {
 			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
@@ -216,6 +216,7 @@ namespace PasswordManager {
 					String^ password = parts[2];
 
 					Account^ acc = gcnew Account(title, login, password);
+					acc->XorCipher();
 
 					myAccounts->Add(acc);
 					servicesListBox->Items->Add(acc->getTitle());
@@ -259,11 +260,12 @@ namespace PasswordManager {
 	}
 
 	private: System::Void saveToFile() {
-		String^ filepath = currentLogin + ".txt";
+		String^ filepath = "/passwords" + currentLogin + ".txt";
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, false, System::Text::Encoding::UTF8);
 
 		for each (Account ^ acc in myAccounts) {
+			acc->XorCipher();
 			writer->WriteLine(acc->getTitle() + "|" + acc->getLogin() + "|" + acc->getPassword());
 		}
 
