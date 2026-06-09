@@ -199,7 +199,7 @@ namespace PasswordManager {
 
 	
 	private: System::Void MainPasswordForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		String^ filepath = "/passwords" + currentLogin + ".txt";
+		String^ filepath = "passwords/" + currentLogin + ".txt";
 
 		if (File::Exists(filepath)) {
 			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
@@ -260,7 +260,7 @@ namespace PasswordManager {
 	}
 
 	private: System::Void saveToFile() {
-		String^ filepath = "/passwords" + currentLogin + ".txt";
+		String^ filepath = "passwords/" + currentLogin + ".txt";
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, false, System::Text::Encoding::UTF8);
 

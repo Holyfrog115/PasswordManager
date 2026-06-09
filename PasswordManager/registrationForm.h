@@ -1,4 +1,5 @@
 #pragma once
+#include "Account.h"
 
 namespace PasswordManager {
 
@@ -149,17 +150,20 @@ namespace PasswordManager {
 	}
 
 	private: System::Void saveToFile(String^ login, String^ password) {
-		String^ filepath = "masterAccounts.txt";
+		String^ filepath = "passwords/masterAccounts.txt";
+
+		Account^ acc = gcnew Account("-", login, password);
+		acc->XorCipher();
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, true, System::Text::Encoding::UTF8);
 
-		writer->WriteLine(login + "|" + password);
+		writer->WriteLine(acc->getLogin() + "|" + acc->getPassword());
 
 		writer->Close();
 	}
 
 	private: bool containsLogin(String^ login) {
-		String^ filepath = "masterAccounts.txt";
+		String^ filepath = "passwords/masterAccounts.txt";
 
 		if (File::Exists(filepath)) {
 			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);

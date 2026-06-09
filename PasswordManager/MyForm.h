@@ -1,6 +1,7 @@
 #pragma once
 #include "MainPasswordForm.h"
 #include "registrationForm.h"
+#include "Account.h"
 
 namespace PasswordManager {
 
@@ -157,7 +158,7 @@ namespace PasswordManager {
 		}
 #pragma endregion
 	private: System::Void loginButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ filepath = "masterAccounts.txt";
+		String^ filepath = "passwords/masterAccounts.txt";
 		bool flag = false;
 
 		if (File::Exists(filepath)) {
@@ -169,11 +170,14 @@ namespace PasswordManager {
 
 				cli::array<String^>^ parts = line->Split('|');
 
-				if (parts->Length == 2) {
-					String^ login = parts[0];
-					String^ password = parts[1];
+				if (parts->Length == 3) {
+					String^ title = parts[0];
+					String^ login = parts[1];
+					String^ password = parts[2];
+					Account^ acc = gcnew Account(title, login, password);
+					acc->XorCipher();
 
-					if (this->loginTextBox->Text == login && this->passwordTextBox->Text == password) {
+					if (this->loginTextBox->Text == acc->getLogin() && this->passwordTextBox->Text == acc->getPassword()) {
 						flag = true;
 						this->currentLogin = login;
 						MainPasswordForm^ mainForm = gcnew MainPasswordForm(currentLogin);
