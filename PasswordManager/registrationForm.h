@@ -157,7 +157,7 @@ namespace PasswordManager {
 
 		StreamWriter^ writer = gcnew StreamWriter(filepath, true, System::Text::Encoding::UTF8);
 
-		writer->WriteLine(acc->getLogin() + "|" + acc->getPassword());
+		writer->WriteLine(acc->getTitle() + "|" + acc->getLogin() + "|" + acc->getPassword());
 
 		writer->Close();
 	}
