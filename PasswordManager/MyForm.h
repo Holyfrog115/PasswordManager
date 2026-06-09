@@ -1,6 +1,6 @@
 #pragma once
 #include "MainPasswordForm.h"
-#include "registrationForm1.h"
+#include "registrationForm.h"
 
 namespace PasswordManager {
 
@@ -10,6 +10,7 @@ namespace PasswordManager {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -131,6 +132,7 @@ namespace PasswordManager {
 			this->registrationButton->TabIndex = 3;
 			this->registrationButton->Text = L"Registration";
 			this->registrationButton->UseVisualStyleBackColor = true;
+			this->registrationButton->Click += gcnew System::EventHandler(this, &MyForm::registrationButton_Click);
 			// 
 			// MyForm
 			// 
@@ -154,16 +156,46 @@ namespace PasswordManager {
 		}
 #pragma endregion
 	private: System::Void loginButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (this->loginTextBox->Text == "admin" && this->passwordTextBox->Text == "1234") {
-			MainPasswordForm^ mainForm = gcnew MainPasswordForm();
+		String^ filepath = "masterAccounts.txt";
+		bool flag = false;
 
-			mainForm->Show();
+		if (File::Exists(filepath)) {
+			StreamReader^ reader = gcnew StreamReader(filepath, System::Text::Encoding::UTF8);
+			String^ line;
 
-			this->Hide();
+			while ((line = reader->ReadLine()) != nullptr) {
+				if (String::IsNullOrWhiteSpace(line)) continue;
+
+				cli::array<String^>^ parts = line->Split('|');
+
+				if (parts->Length == 2) {
+					String^ login = parts[0];
+					String^ password = parts[1];
+
+					if (this->loginTextBox->Text == login && this->passwordTextBox->Text == password) {
+						flag = true;
+						MainPasswordForm^ mainForm = gcnew MainPasswordForm();
+
+						mainForm->Show();
+
+						this->Hide();
+						break;
+					}
+				}
+			}
+
+			reader->Close();
 		}
-		else {
+		if (!flag) {
 			MessageBox::Show(this, "Wrong login or password.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
 		}
+		
+	}
+
+	private: System::Void registrationButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		registrationForm^ registration = gcnew registrationForm();
+
+		registration->Show();
 	}
 };
 }
