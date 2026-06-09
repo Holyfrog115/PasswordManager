@@ -18,13 +18,14 @@ namespace PasswordManager {
 	public ref class MainPasswordForm : public System::Windows::Forms::Form
 	{
 	public:
-		MainPasswordForm(String^ currentLogin)
+		MainPasswordForm(String^ currentLogin, System::Windows::Forms::Form^ loginForm)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
 			this->currentLogin = currentLogin;
+			this->loginForm = loginForm;
 		}
 
 	protected:
@@ -45,9 +46,13 @@ namespace PasswordManager {
 	private: System::Windows::Forms::MaskedTextBox^ passwordTextBox;
 	private: System::Windows::Forms::Button^ addButton;
 	private: System::Windows::Forms::Button^ deleteButton;
-	private: System::Windows::Forms::Button^ saveButton;
+	private: System::Windows::Forms::Button^ logoutButton;
+
+
 	private: System::Collections::Generic::List<Account^>^ myAccounts = gcnew System::Collections::Generic::List<Account^>();
 	private: String^ currentLogin;
+	private: System::Windows::Forms::Form^ loginForm;
+	private: bool isLoggingOut = false;
 
 
 
@@ -80,7 +85,7 @@ namespace PasswordManager {
 			this->passwordTextBox = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->addButton = (gcnew System::Windows::Forms::Button());
 			this->deleteButton = (gcnew System::Windows::Forms::Button());
-			this->saveButton = (gcnew System::Windows::Forms::Button());
+			this->logoutButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// servicesListBox
@@ -157,22 +162,22 @@ namespace PasswordManager {
 			this->deleteButton->UseVisualStyleBackColor = true;
 			this->deleteButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::deleteButton_Click);
 			// 
-			// saveButton
+			// logoutButton
 			// 
-			this->saveButton->Location = System::Drawing::Point(360, 456);
-			this->saveButton->Name = L"saveButton";
-			this->saveButton->Size = System::Drawing::Size(192, 48);
-			this->saveButton->TabIndex = 4;
-			this->saveButton->Text = L"Save";
-			this->saveButton->UseVisualStyleBackColor = true;
-			this->saveButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::saveButton_Click);
+			this->logoutButton->Location = System::Drawing::Point(360, 456);
+			this->logoutButton->Name = L"logoutButton";
+			this->logoutButton->Size = System::Drawing::Size(192, 48);
+			this->logoutButton->TabIndex = 4;
+			this->logoutButton->Text = L"Logout";
+			this->logoutButton->UseVisualStyleBackColor = true;
+			this->logoutButton->Click += gcnew System::EventHandler(this, &MainPasswordForm::logoutButton_Click);
 			// 
 			// MainPasswordForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 561);
-			this->Controls->Add(this->saveButton);
+			this->Controls->Add(this->logoutButton);
 			this->Controls->Add(this->deleteButton);
 			this->Controls->Add(this->addButton);
 			this->Controls->Add(this->passwordTextBox);
@@ -194,7 +199,9 @@ namespace PasswordManager {
 #pragma endregion
 	private: System::Void MainPasswordForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
 		saveToFile();
-		Application::Exit();
+		if (!this->isLoggingOut) {
+			Application::Exit(); // Полностью выходим
+		}
 	}
 
 	
@@ -272,9 +279,12 @@ namespace PasswordManager {
 		writer->Close();
 	}
 
-	private: System::Void saveButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		saveToFile();
-		MessageBox::Show(this, "Data was saved succesfully", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	private: System::Void logoutButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (this->loginForm != nullptr) {
+			this->isLoggingOut = true;
+			loginForm->Show();
+			this->Close();
+		}
 	}
 };
 }

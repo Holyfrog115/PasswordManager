@@ -180,7 +180,7 @@ namespace PasswordManager {
 					if (this->loginTextBox->Text == acc->getLogin() && this->passwordTextBox->Text == acc->getPassword()) {
 						flag = true;
 						this->currentLogin = login;
-						MainPasswordForm^ mainForm = gcnew MainPasswordForm(currentLogin);
+						MainPasswordForm^ mainForm = gcnew MainPasswordForm(currentLogin, this);
 
 						mainForm->Show();
 
